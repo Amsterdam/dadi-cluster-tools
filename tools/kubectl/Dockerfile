@@ -1,5 +1,5 @@
 # Base image for kubectl
-FROM testbbn1dpacr.azurecr.io/docker.io/rancher/kubectl:v1.23.3 AS builder
+FROM rancher/kubectl:v1.33.5 AS builder
 
 FROM debian:13.1-slim
 
