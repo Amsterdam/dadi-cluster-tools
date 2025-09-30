@@ -1,1 +1,1 @@
-echo "Test for shell script execution"
+kubectl get pods
