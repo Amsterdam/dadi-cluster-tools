@@ -1,5 +1,5 @@
-PRIMARY_HASH=$(head -c 24 /dev/urandom | base64 | tr -dc 'a-zA-Z0-9')
-SECONDARY_HASH=$(head -c 24 /dev/urandom | base64 | tr -dc 'a-zA-Z0-9')
+PRIMARY_HASH=$(cat /dev/urandom | head -c 32 | base64)
+SECONDARY_HASH=$(cat /dev/urandom | head -c 32 | base64)
 PRIMARY_DATE=$(date '+%Y%m%d')
 SECONDARY_DATE=$(date -d "1 day ago" '+%Y%m%d')
 PRIMARY_DATE_HASH=$(kubectl get --ignore-not-found secret brp-hashes -o jsonpath="{.data.$PRIMARY_DATE}")
