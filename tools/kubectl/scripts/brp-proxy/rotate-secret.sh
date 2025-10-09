@@ -20,7 +20,6 @@ else
         echo "A hash for today exists, but no hash was found for yesterday. For consistency, a hash for the previous day will be created"
         CONCAT_HASH="$SECONDARY_HASH,$PRIMARY_DATE_HASH"
         kubectl create secret generic brp-hashes --from-literal=$SECONDARY_DATE=$SECONDARY_HASH --from-literal=$PRIMARY_DATE=$PRIMARY_DATE_HASH --from-literal=brp_hash_array=$CONCAT_HASH --dry-run=client -o yaml | kubectl apply --server-side -f -
-
     else
         echo "A hash already exists for today and yesterday. No actions will be taken"
     fi
