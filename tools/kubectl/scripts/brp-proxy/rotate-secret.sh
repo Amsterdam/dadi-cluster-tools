@@ -25,8 +25,8 @@ else
     fi
 fi
 
-CURRENT_PRIMARY_DATE_KEY=$(kubectl get --ignore-not-found secret brp-encryption-keys -o jsonpath="{.data.$PRIMARY_DATE}")
-CURRENT_SECONDARY_DATE_KEY=$(kubectl get --ignore-not-found secret brp-encryption-keys -o jsonpath="{.data.$SECONDARY_DATE}")
+CURRENT_PRIMARY_DATE_KEY=$(kubectl get --ignore-not-found secret brp-encryption-keys -o jsonpath="{.data.$PRIMARY_DATE}" | base64 --decode)
+CURRENT_SECONDARY_DATE_KEY=$(kubectl get --ignore-not-found secret brp-encryption-keys -o jsonpath="{.data.$SECONDARY_DATE}" | base64 --decode)
 CURRENT_CONCAT_KEY="$CURRENT_SECONDARY_DATE_KEY,$CURRENT_PRIMARY_DATE_KEY"
 
 kubectl create secret generic brp-encryption-keys --from-literal=$SECONDARY_DATE=$CURRENT_SECONDARY_DATE_KEY --from-literal=$PRIMARY_DATE=$CURRENT_PRIMARY_DATE_KEY --from-literal=brp_key_array=$CURRENT_CONCAT_KEY --dry-run=client -o yaml | kubectl apply --server-side -f -
